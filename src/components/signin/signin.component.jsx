@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
+import { signInWithPopup, auth,  } from '../../firebase/firebase.utils';
 
 import './signin.styles.scss';
 
@@ -50,7 +51,10 @@ export class SignIn extends Component {
                         handleChange={this.handleChange}
                         label="password"/>
                     
-                    <CustomButton type="submit" >Sign In</CustomButton>
+                    <div className="button">
+                        <CustomButton type="submit" >Sign In</CustomButton>
+                        <CustomButton onClick={signInWithPopup} isGoogleSignIn>Sign In with google</CustomButton>
+                    </div>
                 </form>
             </div>
         );

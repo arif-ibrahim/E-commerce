@@ -20,6 +20,10 @@
   
       .option {
         padding: 10px 15px;
+        cursor: pointer;
+        &:not(:last-child){
+          margin-right: 10px;
+        }
       }
     }
   }
