@@ -4,15 +4,44 @@ import 'firebase/auth';
 
 
 const config = {
-    apiKey: "AIzaSyDJa3r73tM-6a43LATkiKOJJCex7Gj3y5o",
-    authDomain: "ecommere-db.firebaseapp.com",
-    databaseURL: "https://ecommere-db.firebaseio.com",
-    projectId: "ecommere-db",
-    storageBucket: "ecommere-db.appspot.com",
-    messagingSenderId: "530548978594",
-    appId: "1:530548978594:web:cb9f636287e1fe6fbdb8fb",
-    measurementId: "G-D2RPB8J82Q"
-};
+    apiKey: "AIzaSyD6lLXNFSwM4brVrgauo2PsAF9wEYK0-eg",
+    authDomain: "e-commerce-8b3c2.firebaseapp.com",
+    databaseURL: "https://e-commerce-8b3c2.firebaseio.com",
+    projectId: "e-commerce-8b3c2",
+    storageBucket: "e-commerce-8b3c2.appspot.com",
+    messagingSenderId: "429204338772",
+    appId: "1:429204338772:web:0cce837a78bfe75044d5c1",
+    measurementId: "G-ZB71WTJ3ZM"
+  };
+
+
+export const createUserProfileDocument = async (userAuth, additionalData) => {
+  if(!userAuth) return;
+
+    const userRef = await firestore.doc(`users/${userAuth.uid}`);
+
+    const snapShot = await userRef.get();
+
+    if(!snapShot.exists){
+      const { displayName, email } = userAuth;
+      const createdAt = new Date();
+      
+      try {
+        await userRef.set({
+          displayName,
+          email,
+          createdAt,
+          ...additionalData
+        })
+      } catch (error) {
+        console.log('error creating user', error.message);
+        
+      }
+    }
+
+    return userRef;
+    
+}
 
 firebase.initializeApp(config);
 
