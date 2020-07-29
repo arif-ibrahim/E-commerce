@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
-import { signInWithPopup, } from '../../firebase/firebase.utils';
+import { signInWithPopup, auth } from '../../firebase/firebase.utils';
 
 import './signin.styles.scss';
 
@@ -16,8 +16,14 @@ export class SignIn extends Component {
         
     }
 
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         event.preventDefault();
+        const {email, password } = this.state;
+        try {
+           await auth.signInWithEmailAndPassword(email, password);
+        } catch (error) {
+            console.error(error);
+        }
         this.setState({ email: '', password: '' })
     }
 
